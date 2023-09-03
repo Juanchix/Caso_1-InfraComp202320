@@ -25,6 +25,7 @@ public class App{
         for (int i = 0; i < N; i++) {
             Productor productor = new Productor(i, cantidadProductos, bodega);
             
+            
         }
 
     
