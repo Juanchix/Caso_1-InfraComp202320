@@ -33,7 +33,6 @@ public class Productor extends Thread{
     }
 
     //MetodoPrimerProducto
-
     public Producto generarPrimero(){
         while (bodega.getProductos().size() == bodega.getCapacidad()){
             try{
