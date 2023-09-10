@@ -60,7 +60,7 @@ public class Repartidor extends Thread {
             //producto.notify(); SI SOLO SE PRODUCE UN PRODUCTO HAY ERROR
             //producto.notify();
             num_despachados++;
-             System.out.println("EL numero de productos despachados es: "+ num_despachados);
+            System.out.println("EL numero de productos despachados es: "+ num_despachados);
 
         }
         System.out.println("----Thread repartidor acabado");

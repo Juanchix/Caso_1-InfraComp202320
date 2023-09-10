@@ -20,7 +20,7 @@ public class Productor extends Thread{
     public Producto generarProducto(int id_producto, int id_padre){
         Producto producto = new Producto(id_producto,id_padre);
         productos.add(producto);
-        System.out.println("Creación de producto "+id_producto+" del padre "+id_padre);
+        System.out.println("Creación de producto "+(id_producto+1)+" del padre "+(id_padre+1));
         return producto;
     }
 

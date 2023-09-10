@@ -34,10 +34,10 @@ public class App{
         for (int i = 0; i<N; i++)
         {
             int cantidadProductos;
-            System.out.println("Ingrese el número total de productos que creara el productor "+i+": ");
+            System.out.println("Ingrese el número total de productos que creara el productor "+(i+1)+": ");
             cantidadProductos= scanner.nextInt();
             Productor productor = new Productor(i, cantidadProductos, bodega);
-            System.out.println("Productor "+i+" ha sido creado");
+            System.out.println("Productor "+(i+1)+" ha sido creado");
             productor.start();
             
             totalProductos+=cantidadProductos;
@@ -62,7 +62,7 @@ public class App{
         for(int i=0; i<M; i++)
         {
             Repartidor repartidor = new Repartidor(despacho, despachador);
-            System.out.println("Repartidor "+i+" ha sido creado");
+            System.out.println("Repartidor "+(i+1)+" ha sido creado");
             repartidor.start();
         }
         //System.out.println("");
