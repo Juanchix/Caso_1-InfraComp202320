@@ -26,7 +26,7 @@ public class Repartidor extends Thread {
     //Metodo repartir: se demora en repartir entre 3 y 10 segundos
     public void repartir(Producto producto){
         try{
-            int tiempo = (int) (Math.random() * 8000) + 3000;
+            int tiempo = (int) (Math.random() * 7000) + 3000;
             Thread.sleep(tiempo);
             producto.entregar();
             notifyAll();
