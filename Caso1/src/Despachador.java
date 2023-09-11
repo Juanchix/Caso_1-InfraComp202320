@@ -17,9 +17,9 @@ public class Despachador extends Thread{
 
     //Metodo estoyEsperando
     public void estoyEsperando(){
-        System.out.println("La bodega esta vacía");
-        System.out.println("Estoy esperando a que se agreguen productos");
-        System.out.println("Ya vuelvo");
+        System.out.println("-     La bodega esta vacía");
+        System.out.println("-     Estoy esperando a que se agreguen productos");
+        System.out.println("-     Ya vuelvo");
     }
 
     //Metodo SacarProductoBodega
@@ -32,8 +32,8 @@ public class Despachador extends Thread{
         }
         Producto producto = bodega.retirarProducto();
         //System.out.println("El despachador ha retirado un producto del productor "+producto.getPadre()+" que estaba en la bodega");
-        System.out.println("Producto retirado de bodega");
- 
+        System.out.println("║       Producto retirado de bodega");
+
         return producto;
     } 
 
@@ -41,19 +41,19 @@ public class Despachador extends Thread{
     public synchronized void agregarProductoDespacho(Producto producto){
         despacho.agregarProducto(producto);
         //System.out.println("El despachador ha agregado un producto del productor "+producto.getPadre()+" en el despacho");
-        System.out.println("Producto agregado a despacho");
+        System.out.println("║       Producto agregado a despacho");
     }
 
     //Metodo run
     public void run(){
         int total = totalProductos;
-        System.out.println("----Thread despachador iniciado");
+        System.out.println(">> Thread despachador iniciado");
         while(total!=0)
         {
             Producto producto = sacarProductoBodega();
             agregarProductoDespacho(producto);
             total--;
         }
-        System.out.println("---Thread despachador acabado");
+        System.out.println(">> Thread despachador acabado");
     }
 }

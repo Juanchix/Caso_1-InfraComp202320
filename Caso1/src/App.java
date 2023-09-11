@@ -9,13 +9,17 @@ public class App{
     public static void main(String[] args){ 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Ingrese el número de productores: ");
+        System.out.println("****************************************************************");
+        System.out.println("***        Manejo de concurrencia - Caso 1 InfraComp         ***");
+        System.out.println("****************************************************************");
+
+        System.out.print("\n║ Ingrese el número de productores -->  ");
         int N = scanner.nextInt();
 
-        System.out.print("Ingrese el número de repartidores: ");
+        System.out.print("║ Ingrese el número de repartidores -->  ");
         int M = scanner.nextInt();
 
-        System.out.print("Ingrese la capacidad de la bodega: ");
+        System.out.print("║ Ingrese la capacidad de la bodega -->  ");
         int TAM = scanner.nextInt();
 
         // Instancias de clases
@@ -34,10 +38,10 @@ public class App{
         for (int i = 0; i<N; i++)
         {
             int cantidadProductos;
-            System.out.println("Ingrese el número total de productos que creara el productor "+(i+1)+": ");
+            System.out.print("║ Ingrese el número total de productos que creará el productor "+(i+1)+"-->  ");
             cantidadProductos= scanner.nextInt();
             Productor productor = new Productor(i, cantidadProductos, bodega);
-            System.out.println("Productor "+(i+1)+" ha sido creado");
+            System.out.println("+   El productor "+(i+1)+" ha sido creado");
             productor.start();
             
             totalProductos+=cantidadProductos;
@@ -50,7 +54,7 @@ public class App{
 
         //Crear Despachador
         Despachador despachador = new Despachador(M, bodega, despacho, totalProductos);
-        System.out.println("Despachador ha sido creado");
+        System.out.println("+  El despachador ha sido creado");
         despachador.start();
 
         //System.out.println("");
@@ -62,7 +66,7 @@ public class App{
         for(int i=0; i<M; i++)
         {
             Repartidor repartidor = new Repartidor(despacho, despachador);
-            System.out.println("Repartidor "+(i+1)+" ha sido creado");
+            System.out.println("+  El repartidor "+(i+1)+" ha sido creado");
             repartidor.start();
         }
         //System.out.println("");

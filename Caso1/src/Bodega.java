@@ -27,7 +27,7 @@ public class Bodega {
         }
         productos.add(producto);
         this.notifyAll(); //notificar que se puede sacar un producto si estuviera en espera pasiva
-        System.out.println("El producto "+ producto.getID()+" del productor " + producto.getPadre() + " se agrego a la bodega.");
+        System.out.println("*     El producto "+ (producto.getID()+1)+" del productor " + (producto.getPadre()+1) + " se agregó a la bodega.");
     }
 
     //Metodo retirarProducto
@@ -40,7 +40,7 @@ public class Bodega {
         }
         Producto producto = productos.remove(0);
         this.notifyAll(); //despertar sobre bodega porque hay un cupo libre
-        System.out.println("El producto "+producto.getID() +" del productor " + producto.getPadre() + " ha sido retirado de la bodega.");
+        System.out.println("*     El producto "+(producto.getID()+1) +" del productor " + (producto.getPadre()+1) + " ha sido retirado de la bodega.");
         return producto;
     }
 }
