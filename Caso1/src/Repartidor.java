@@ -1,12 +1,8 @@
 public class Repartidor extends Thread {
-    private int id;
     private Bodega despacho;
     private Despachador despachador;
-    private static int num_despachados=0;
-
     //constructor
-    public Repartidor(int id, Bodega despacho, Despachador despachador){
-        this.id = id;
+    public Repartidor(Bodega despacho, Despachador despachador){
         this.despacho = despacho;
         this.despachador = despachador;
     }
@@ -23,7 +19,7 @@ public class Repartidor extends Thread {
 
         Producto producto = despacho.retirarProducto();
         //System.out.println("El repartidor ha retirado un producto del productor "+producto.getPadre()+" del despacho");
-        System.out.println("Producto "+ producto.getID() +" del productor "+ producto.getPadre()+" recogido por repartidor");
+        System.out.println("+   Producto recogido por repartidor");
         
         return producto;
     }
@@ -31,16 +27,13 @@ public class Repartidor extends Thread {
     //Metodo repartir: se demora en repartir entre 3 y 10 segundos
     public synchronized void repartir(Producto producto){
         try{
-            int tiempo = (int) (Math.random() * 7000) + 3000;
+            int tiempo = (int) (Math.random() * 8000) + 3000;
             sleep(tiempo);
-            producto.entregar();//boolean
-            synchronized (producto)
-            {
-                producto.notify();
-            }
+            producto.entregar();
+            producto.notify();
             //notifiy para despertar en producto
             //System.out.println("El repartidor ha repartido un producto del prodcutor "+producto.getPadre() + " en " + tiempo / 1000 + " segundos.");
-            System.out.println("Producto "+ producto.getID()+" del productor"+producto.getPadre()+" repartido");
+            System.out.println("*     Producto repartido");
         }catch(InterruptedException e){
             e.printStackTrace();
         }
@@ -48,17 +41,15 @@ public class Repartidor extends Thread {
 
     //Metodo run
     public void run(){
-        System.out.println("----Thread repartidor "+ id +" iniciado");
-        System.out.println("El total de productos a producir es: "+despachador.getTotalProductos());
-        while(true)
+        System.out.println(">> Thread repartidor iniciado");
+        int num_despachados = 0;
+        System.out.println("║       El total de productos a producir es: "+despachador.getTotalProductos());
+        while(num_despachados < despachador.getTotalProductos())
         {
-            if(!(num_despachados<despachador.getTotalProductos()))
-            {
-                break;
-            }
-            //System.out.println("Tamaño del despacho: "+despacho.getProductos().size());
-            Producto producto = despacho.retirarProducto();
-            //System.out.println("Tamaño del despacho: "+despacho.getProductos().size());
+
+            System.out.println("*     Tamaño del despacho: "+despacho.getProductos().size());
+            Producto producto = retirarDeDespacho(despacho);
+            System.out.println("*     Tamaño del despacho: "+despacho.getProductos().size());
             repartir(producto);
             /* 
             if(producto.getEntregado())
@@ -69,9 +60,9 @@ public class Repartidor extends Thread {
             //producto.notify(); SI SOLO SE PRODUCE UN PRODUCTO HAY ERROR
             //producto.notify();
             num_despachados++;
+            System.out.println("║       El número de productos despachados es: "+ num_despachados);
+
         }
-        
-        System.out.println("EL numero total de productos despachados es: "+ num_despachados);
-        System.out.println("----Thread repartidor "+ id+" acabado");
+        System.out.println(">> Thread repartidor acabado");
     }
 }

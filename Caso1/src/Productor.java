@@ -20,27 +20,22 @@ public class Productor extends Thread{
     public Producto generarProducto(int id_producto, int id_padre){
         Producto producto = new Producto(id_producto,id_padre);
         productos.add(producto);
-        System.out.println("Creación de producto "+id_producto+" del padre "+id_padre);
+        System.out.println("+   El productor "+(id_padre+1)+" ha creado el producto "+(id_producto+1));
         return producto;
     }
 
     //metodo run
     public void run(){
-        System.out.println("----Thread "+ id+" productor iniciado");
+        System.out.println(">> Thread productor iniciado");
         while(hijos < numProductos){
             //Genero un primer producto siempre 
-            Producto producto = generarProducto(this.hijos+1,this.id);
+            Producto producto = generarProducto(this.hijos,this.id);
             bodega.agregarProducto(producto); //puedo dormir sobre la bodega
             //El producto está en el ciclo de producción, entonces debo dormir sobre el producto
             //ya que no puedo tener 2 o más productos en un ciclo de producción
-            System.out.println("El producto "+producto.getID()+" del productor "+producto.getPadre()+" ha sido agregado a la bodega");
-            synchronized (producto)
-            {
-                try {
-                    System.out.println("El productor "+producto.getPadre()+" está durmiendo sobre el producto "+producto.getID());
-                    producto.wait();
-                } catch (InterruptedException e) {e.printStackTrace();}
-            }
+            try {
+                producto.wait();
+            } catch (InterruptedException e) {e.printStackTrace();}
             hijos++; //debería generar lo que me digan por consola para cada instancia de thread
 
             /*
@@ -62,7 +57,7 @@ public class Productor extends Thread{
             hijos++;
              */
         }
-        System.out.println("-El thread produjo y agrego "+this.hijos+" productos");
-        System.out.println("----Thread "+ id +" productor acabado");
+        System.out.println("║       El Thread produjo y agregó "+this.hijos+" productos");
+        System.out.println(">> Thread productor acabado");
     }
 }

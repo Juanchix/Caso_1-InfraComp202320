@@ -23,11 +23,11 @@ public class Bodega {
         while (this.getProductos().size() == this.getCapacidad()){
             try{
                 this.wait(); //dormir sobre la bodega
-            }catch(InterruptedException e){e.printStackTrace();}
+            }catch(InterruptedException e){}
         }
         productos.add(producto);
-        this.notify();//notificar que se puede sacar un producto si estuviera en espera pasiva
-        //System.out.println("El producto "+ producto.getID()+" del productor " + producto.getPadre() + " se agrego a la bodega.");
+        this.notifyAll(); //notificar que se puede sacar un producto si estuviera en espera pasiva
+        System.out.println("*     El producto "+ (producto.getID()+1)+" del productor " + (producto.getPadre()+1) + " se agregó a la bodega.");
     }
 
     //Metodo retirarProducto
@@ -36,11 +36,11 @@ public class Bodega {
         {
             try {
                 this.wait();
-            } catch (InterruptedException e) {e.printStackTrace();}
+            } catch (InterruptedException e) {}
         }
         Producto producto = productos.remove(0);
-        this.notify(); //despertar sobre bodega porque hay un cupo libre
-        //System.out.println("El producto "+producto.getID() +" del productor " + producto.getPadre() + " ha sido retirado de la bodega.");
+        this.notifyAll(); //despertar sobre bodega porque hay un cupo libre
+        System.out.println("*     El producto "+(producto.getID()+1) +" del productor " + (producto.getPadre()+1) + " ha sido retirado de la bodega.");
         return producto;
     }
 }
