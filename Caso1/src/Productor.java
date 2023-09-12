@@ -26,7 +26,7 @@ public class Productor extends Thread{
 
     //metodo run
     public void run(){
-        System.out.println("----Thread "+ id+" productor iniciado");
+        System.out.println(">> Thread del productor "+ id+" iniciado");
         while(hijos < numProductos){
             //Genero un primer producto siempre 
             Producto producto = generarProducto(this.hijos+1,this.id);
@@ -43,7 +43,7 @@ public class Productor extends Thread{
             }
             hijos++;
         }
-        System.out.println("------------------El thread"+id+ "produjo y agrego "+this.hijos+" productos");
-        System.out.println("----Thread "+ id +" productor acabado");
+        System.out.println("║     El thread"+id+ "produjo y agrego "+this.hijos+" productos");
+        System.out.println(">> Thread "+ id +" productor acabado");
     }
 }

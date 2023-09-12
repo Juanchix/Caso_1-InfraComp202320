@@ -7,6 +7,7 @@ public class Despachador extends Thread{
     private int totalProductos;
     private List<Repartidor> repartidores;
     private Boolean termino;
+
     //constructor
     public Despachador(int numRepartidores, Bodega bodega, Bodega despacho, int totalProductos){
         this.bodega = bodega;
@@ -15,42 +16,39 @@ public class Despachador extends Thread{
         this.repartidores=new ArrayList<Repartidor>(numRepartidores);
         this.termino = false;
     }
+
     //Getter
-    public int getTotalProductos()
-    {
+    public int getTotalProductos(){
         return this.totalProductos;
     }
-    public List<Repartidor> getRepartidores()
-    {
+    
+    public List<Repartidor> getRepartidores(){
         return this.repartidores;
     }
-    public Boolean getTerminado()
-    {
+    
+    public Boolean getTerminado(){
         return this.termino;
     }
 
     //Calcular repartidos
-    public int getNumRepartidos()
-    {
+    public int getNumRepartidos(){
         int repartidos=0;
-        for (int i=0; i<getRepartidores().size();i++)
-        {
+        for (int i=0; i<getRepartidores().size();i++){
             repartidos += getRepartidores().get(i).getDespachados();
         }
         return repartidos;
     }
 
     //Agregar repartidores
-    public void agregarRepartidor(Repartidor repartidor)
-    {
+    public void agregarRepartidor(Repartidor repartidor){
         this.repartidores.add(repartidor);
     } 
 
     //Metodo estoyEsperando
     public void estoyEsperando(){
-        System.out.println("La bodega esta vacía");
-        System.out.println("Estoy esperando a que se agreguen productos");
-        System.out.println("Ya vuelvo");
+        System.out.println("-     La bodega esta vacía");
+        System.out.println("-     Estoy esperando a que se agreguen productos");
+        System.out.println("-     Ya vuelvo");
     }
 
     //Metodo SacarProductoBodega
@@ -63,7 +61,7 @@ public class Despachador extends Thread{
         }
         Producto producto = bodega.retirarProducto();
         //System.out.println("El despachador ha retirado un producto del productor "+producto.getPadre()+" que estaba en la bodega");
-        System.out.println("Producto "+producto.getID()+" retirado de bodega del productor "+producto.getPadre());
+        System.out.println("Producto "+(producto.getID()+1)+" retirado de bodega del productor "+(producto.getPadre()+1));
         return producto;
     } 
 
@@ -71,14 +69,14 @@ public class Despachador extends Thread{
     public synchronized void agregarProductoDespacho(Producto producto){
         despacho.agregarProducto(producto);
         //System.out.println("El despachador ha agregado un producto del productor "+producto.getPadre()+" en el despacho");
-        System.out.println("Producto "+producto.getID()+" agregado a despacho del productor "+producto.getPadre());
+        System.out.println("El Producto "+(producto.getID()+1)+" agregado a despacho del productor "+(producto.getPadre()+1));
     }
 
     //Metodo run
     public void run(){
         int trasladados = 0;
-        System.out.println("----Thread despachador iniciado");
-        while(true) //thread despacho a todos Y todos los productos fueron repartidos
+        System.out.println(">> Thread despachador iniciado");
+        while(trasladados<totalProductos || getNumRepartidos()<totalProductos) //thread despacho a todos Y todos los productos fueron repartidos
         {
             if(trasladados<totalProductos)
             {
@@ -86,19 +84,12 @@ public class Despachador extends Thread{
                 agregarProductoDespacho(producto);
                 trasladados++;
             }
-            if(getNumRepartidos()==totalProductos)
-            {
-                this.termino=true;
-                despacho.setDespachadorAcaba(true);
+            if(getNumRepartidos()==totalProductos){
                 break;
             }
+
         }
-        synchronized(this)
-        {
-            this.notifyAll();
-        }
-        System.out.println("---Thread despachador acabado");
-        System.out.println("TOTAL despachados es: "+getNumRepartidos());
-        
+        System.out.println(">> Thread despachador acabado");
+        this.termino=true;
     }
 }
