@@ -29,7 +29,7 @@ public class Repartidor extends Thread {
 
         Producto producto = despacho.retirarProducto();
         //System.out.println("El repartidor ha retirado un producto del productor "+producto.getPadre()+" del despacho");
-        System.out.println("Producto "+ producto.getID() +" del productor "+ producto.getPadre()+" recogido por repartidor");
+        System.out.println("*     Producto "+ producto.getID() +" del productor "+ producto.getPadre()+" recogido por repartidor");
         
         return producto;
     }
@@ -46,7 +46,7 @@ public class Repartidor extends Thread {
             }
             //notifiy para despertar en producto
             //System.out.println("El repartidor ha repartido un producto del prodcutor "+producto.getPadre() + " en " + tiempo / 1000 + " segundos.");
-            System.out.println("Producto "+ producto.getID()+" del productor"+producto.getPadre()+" repartido");
+            System.out.println("*     Producto "+ producto.getID()+" del productor"+producto.getPadre()+" repartido");
         }catch(InterruptedException e){
             e.printStackTrace();
         }
@@ -54,8 +54,8 @@ public class Repartidor extends Thread {
 
     //Metodo run
     public void run(){
-        System.out.println("----Thread repartidor "+ id +" iniciado");
-        System.out.println("El total de productos a producir es: "+despachador.getTotalProductos());
+        System.out.println(">> Thread del repartidor "+ id +" iniciado");
+        System.out.println("║     Se producirán en total "+despachador.getTotalProductos()+" productos");
         while(true)
         {
             if(despachador.getTerminado()) //thread despachador acabo
@@ -76,12 +76,12 @@ public class Repartidor extends Thread {
             //producto.notify();
             num_despachados++;
             System.out.println("");
-            System.out.println("EL repartidor "+this.id+" ha repartido "+this.num_despachados);
+            System.out.println("*     El repartidor "+this.id+" ha repartido "+this.num_despachados+" productos");
             System.out.println("");
 
         }
         
-        System.out.println("EL numero total de productos despachados es: "+ num_despachados);
-        System.out.println("----Thread repartidor "+ id+" acabado");
+        System.out.println("║      EL número total de productos despachados es: "+ num_despachados);
+        System.out.println(">> Thread del repartidor "+ id+" acabado");
     }
 }

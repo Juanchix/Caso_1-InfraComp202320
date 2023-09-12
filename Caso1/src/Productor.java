@@ -20,7 +20,7 @@ public class Productor extends Thread{
     public Producto generarProducto(int id_producto, int id_padre){
         Producto producto = new Producto(id_producto,id_padre);
         productos.add(producto);
-        System.out.println("Creación de producto "+id_producto+" del padre "+id_padre);
+        System.out.println("+   El productor "+(id_padre)+" ha creado el producto "+(id_producto));
         return producto;
     }
 
@@ -33,11 +33,11 @@ public class Productor extends Thread{
             bodega.agregarProducto(producto); //puedo dormir sobre la bodega
             //El producto está en el ciclo de producción, entonces debo dormir sobre el producto
             //ya que no puedo tener 2 o más productos en un ciclo de producción
-            System.out.println("El producto "+producto.getID()+" del productor "+producto.getPadre()+" ha sido agregado a la bodega");
+            System.out.println("*     El producto "+producto.getID()+" del productor "+producto.getPadre()+" ha sido agregado a la bodega");
             synchronized (producto)
             {
                 try {
-                    System.out.println("El productor "+producto.getPadre()+" está durmiendo sobre el producto "+producto.getID());
+                    System.out.println("*     El productor "+producto.getPadre()+" está durmiendo sobre el producto "+producto.getID());
                     producto.wait();
                 } catch (InterruptedException e) {e.printStackTrace();}
             }
@@ -62,7 +62,7 @@ public class Productor extends Thread{
             hijos++;
              */
         }
-        System.out.println("║     El thread"+id+ "produjo y agrego "+this.hijos+" productos");
+        System.out.println("║     El thread"+id+ "produjo y agregó "+this.hijos+" productos");
         System.out.println(">> Thread "+ id +" productor acabado");
     }
 }
