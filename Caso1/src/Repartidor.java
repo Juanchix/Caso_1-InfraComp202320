@@ -58,7 +58,6 @@ public class Repartidor extends Thread {
         System.out.println("El total de productos a producir es: "+despachador.getTotalProductos());
         while(true)
         {
-            System.out.println("METODO BOOL: "+despachador.getTerminado());
             if(despachador.getTerminado()) //thread despachador acabo
             {
                 break;

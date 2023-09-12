@@ -14,16 +14,17 @@ public class Producto {
     public void entregar(){
         this.entregado = true;
     }
+    
     //Metodos getters
     public boolean getEntregado(){
         return entregado;
     }
-    public int getPadre()
-    {
+
+    public int getPadre(){
         return this.padre;
     }
-        public int getID()
-    {
+    
+    public int getID(){
         return this.productor;
     }
 }
