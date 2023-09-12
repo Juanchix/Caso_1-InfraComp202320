@@ -61,7 +61,7 @@ public class Despachador extends Thread{
         }
         Producto producto = bodega.retirarProducto();
         //System.out.println("El despachador ha retirado un producto del productor "+producto.getPadre()+" que estaba en la bodega");
-        System.out.println("Producto "+(producto.getID()+1)+" retirado de bodega del productor "+(producto.getPadre()+1));
+        System.out.println("*     Producto "+(producto.getID())+" retirado de bodega del productor "+(producto.getPadre()));
         return producto;
     } 
 
@@ -69,7 +69,7 @@ public class Despachador extends Thread{
     public synchronized void agregarProductoDespacho(Producto producto){
         despacho.agregarProducto(producto);
         //System.out.println("El despachador ha agregado un producto del productor "+producto.getPadre()+" en el despacho");
-        System.out.println("El Producto "+(producto.getID()+1)+" agregado a despacho del productor "+(producto.getPadre()+1));
+        System.out.println("*      El Producto "+(producto.getID())+" agregado a despacho del productor "+(producto.getPadre()));
     }
 
     //Metodo run
